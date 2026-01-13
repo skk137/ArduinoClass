@@ -1,0 +1,34 @@
+# ArduinoClass
+Κώδικας Εργαστηρίου 1
+
+// Αυτόματο σύστημα φωτισμού με LDR και LED
+// LDR -> A0, LED -> D9
+const int LDR_PIN = A0;
+const int LED_PIN = 9;
+
+
+// Τιμή κατωφλίου (threshold)
+int threshold = 400;
+void setup() {
+  pinMode(LED_PIN, OUTPUT);
+// 9600 bits/δευτερόλεπτο, προεπιλεγμένη και ασφαλής τιμή
+  Serial.begin(9600); // για να βλέπουμε τιμές στο Serial Monitor
+} 
+
+void loop() {
+  int lightValue = analogRead(LDR_PIN); // 0–1023
+
+
+// Εκτύπωση τιμής για πειραματισμό/ρύθμιση threshold
+  Serial.println(lightValue);
+
+ // Απόφαση: όταν είναι "σκοτάδι" (τιμή κάτω από threshold) ανάβει το LED
+  if (lightValue < threshold) {
+    digitalWrite (LED_PIN, HIGH);
+  } else{
+    digitalWrite (LED_PIN, LOW);
+  }
+  delay(200); // μικρή καθυστέρηση για σταθερότητα και οχι τρεμόπεγμα
+}
+
+
